@@ -517,7 +517,6 @@
     ?.addEventListener("click", async () => {
       const shareData = {
         title: `${data.bride.name} ♥ ${data.groom.name} 청첩장`,
-        text: `${dateBig} ${dateDayTime}\n${data.venue.name}`,
         url: location.href,
       };
       try {
