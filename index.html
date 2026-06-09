@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>박하늘 ♥ 김성윤 — 모바일 청첩장</title>
+  <meta name="description" content="저희 두 사람이 함께 새로운 루트를 시작합니다." />
+  <meta name="theme-color" content="#F2EEE6" />
+
+  <!-- KakaoTalk / Open Graph preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="박하늘 ♥ 김성윤 결혼합니다" />
+  <meta property="og:description" content="2026.10.17 SAT 1:00 PM" />
+  <meta property="og:image" content="" />
+
+  <!-- Fonts: Fraunces (display) + Pretendard (body Korean) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Do+Hyeon&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ============================================================== -->
+  <!-- SVG sprite: reusable climbing-hold shapes                       -->
+  <!-- ============================================================== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <!-- Matte rough-surface texture filter (climbing-hold grit) -->
+      <filter id="grain" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
+        <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="2" seed="7" result="noise"/>
+        <feColorMatrix in="noise" type="matrix"
+          values="0 0 0 0 0
+                  0 0 0 0 0
+                  0 0 0 0 0
+                  0 0 0 0.78 0" result="dark"/>
+        <feComposite in="dark" in2="SourceGraphic" operator="in" result="grain"/>
+        <feMerge>
+          <feMergeNode in="SourceGraphic"/>
+          <feMergeNode in="grain"/>
+        </feMerge>
+      </filter>
+
+      <!-- Lighter speckle filter for darker holds (black volumes) -->
+      <filter id="grain-light" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
+        <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="2" seed="13" result="noise"/>
+        <feColorMatrix in="noise" type="matrix"
+          values="0 0 0 0 1
+                  0 0 0 0 1
+                  0 0 0 0 1
+                  0 0 0 0.42 0" result="light"/>
+        <feComposite in="light" in2="SourceGraphic" operator="in" result="grain"/>
+        <feMerge>
+          <feMergeNode in="SourceGraphic"/>
+          <feMergeNode in="grain"/>
+        </feMerge>
+      </filter>
+
+      <!-- Soft grain for fluorescent / bright large volumes -->
+      <filter id="grain-soft" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
+        <feTurbulence type="fractalNoise" baseFrequency="0.35" numOctaves="2" seed="9" result="noise"/>
+        <feColorMatrix in="noise" type="matrix"
+          values="0 0 0 0 0
+                  0 0 0 0 0
+                  0 0 0 0 0
+                  0 0 0 0.28 0" result="dark"/>
+        <feComposite in="dark" in2="SourceGraphic" operator="in" result="grain"/>
+        <feMerge>
+          <feMergeNode in="SourceGraphic"/>
+          <feMergeNode in="grain"/>
+        </feMerge>
+      </filter>
+
+      <!-- Medium grain for grey/dark large volumes (more visible than soft, less than regular) -->
+      <filter id="grain-medium" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
+        <feTurbulence type="fractalNoise" baseFrequency="0.4" numOctaves="2" seed="11" result="noise"/>
+        <feColorMatrix in="noise" type="matrix"
+          values="0 0 0 0 0
+                  0 0 0 0 0
+                  0 0 0 0 0
+                  0 0 0 0.48 0" result="dark"/>
+        <feComposite in="dark" in2="SourceGraphic" operator="in" result="grain"/>
+        <feMerge>
+          <feMergeNode in="SourceGraphic"/>
+          <feMergeNode in="grain"/>
+        </feMerge>
+      </filter>
+
+      <!-- Matte form-shading: diagonal light from upper-left (low gloss) -->
+      <linearGradient id="hold-shade" x1="0.18" y1="0" x2="0.82" y2="1">
+        <stop offset="0%"   stop-color="white" stop-opacity="0.08"/>
+        <stop offset="14%"  stop-color="white" stop-opacity="0.02"/>
+        <stop offset="42%"  stop-color="white" stop-opacity="0"/>
+        <stop offset="58%"  stop-color="black" stop-opacity="0"/>
+        <stop offset="86%"  stop-color="black" stop-opacity="0.34"/>
+        <stop offset="100%" stop-color="black" stop-opacity="0.52"/>
+      </linearGradient>
+
+      <!-- Stronger version for thin/small holds and crimps -->
+      <linearGradient id="hold-shade-strong" x1="0.15" y1="0" x2="0.85" y2="1">
+        <stop offset="0%"   stop-color="white" stop-opacity="0.12"/>
+        <stop offset="18%"  stop-color="white" stop-opacity="0.03"/>
+        <stop offset="42%"  stop-color="white" stop-opacity="0"/>
+        <stop offset="55%"  stop-color="black" stop-opacity="0"/>
+        <stop offset="85%"  stop-color="black" stop-opacity="0.44"/>
+        <stop offset="100%" stop-color="black" stop-opacity="0.60"/>
+      </linearGradient>
+
+      <!-- Radial ambient occlusion (dark ring just inside the outline) -->
+      <radialGradient id="hold-rim" cx="50%" cy="50%" r="55%">
+        <stop offset="0%"   stop-color="black" stop-opacity="0"/>
+        <stop offset="75%"  stop-color="black" stop-opacity="0"/>
+        <stop offset="92%"  stop-color="black" stop-opacity="0.18"/>
+        <stop offset="100%" stop-color="black" stop-opacity="0.42"/>
+      </radialGradient>
+
+      <!-- JUG: big rounded chunky hold -->
+      <symbol id="hold-jug" viewBox="0 0 100 100">
+        <!-- Body with grain -->
+        <path filter="url(#grain)" d="M14 56 C14 26, 38 18, 50 18 C66 18, 86 28, 86 56 C86 74, 70 82, 50 82 C30 82, 14 74, 14 56 Z" fill="var(--hc,#d94b4b)" stroke="rgba(0,0,0,0.42)" stroke-width="1.3"/>
+        <!-- Ambient occlusion ring inside outline -->
+        <path d="M14 56 C14 26, 38 18, 50 18 C66 18, 86 28, 86 56 C86 74, 70 82, 50 82 C30 82, 14 74, 14 56 Z" fill="url(#hold-rim)"/>
+        <!-- Concentrated bottom shadow (dome underside) -->
+        <path d="M16 60 C16 76, 32 80, 50 80 C68 80, 84 76, 84 60 C70 70, 30 70, 16 60 Z" fill="rgba(0,0,0,0.20)"/>
+        <!-- Form-shading gradient overlay (diagonal light) -->
+        <path d="M14 56 C14 26, 38 18, 50 18 C66 18, 86 28, 86 56 C86 74, 70 82, 50 82 C30 82, 14 74, 14 56 Z" fill="url(#hold-shade)"/>
+        <!-- Lit upper bevel (matte light catch, NOT specular) -->
+        <path d="M22 32 Q34 22 50 22 Q58 22 64 24" fill="none" stroke="rgba(255,255,255,0.11)" stroke-width="1.6" stroke-linecap="round"/>
+        <!-- Inner crease (suggests 3D top face) -->
+        <path d="M22 56 Q40 64 60 62 Q74 60 80 56" fill="none" stroke="rgba(0,0,0,0.22)" stroke-width="0.9"/>
+      </symbol>
+
+      <!-- CRIMP: small thin edge -->
+      <symbol id="hold-crimp" viewBox="0 0 100 100">
+        <path filter="url(#grain)" d="M10 46 Q12 38 22 36 L78 36 Q88 38 90 46 L90 56 Q88 62 78 64 L22 64 Q12 62 10 56 Z" fill="var(--hc,#d94b4b)" stroke="rgba(0,0,0,0.42)" stroke-width="1.3"/>
+        <path d="M10 46 Q12 38 22 36 L78 36 Q88 38 90 46 L90 56 Q88 62 78 64 L22 64 Q12 62 10 56 Z" fill="url(#hold-rim)"/>
+        <!-- Bottom overhang shadow (the lip casts shadow below) -->
+        <path d="M10 54 Q12 62 22 64 L78 64 Q88 62 90 54 L86 58 Q72 60 50 60 Q28 60 14 58 Z" fill="rgba(0,0,0,0.26)"/>
+        <path d="M10 46 Q12 38 22 36 L78 36 Q88 38 90 46 L90 56 Q88 62 78 64 L22 64 Q12 62 10 56 Z" fill="url(#hold-shade-strong)"/>
+        <!-- Top edge highlight -->
+        <path d="M22 38 L76 38" fill="none" stroke="rgba(255,255,255,0.11)" stroke-width="1.2" stroke-linecap="round"/>
+      </symbol>
+
+      <!-- PINCH: oval with subtle notch -->
+      <symbol id="hold-pinch" viewBox="0 0 100 100">
+        <ellipse filter="url(#grain)" cx="50" cy="50" rx="34" ry="22" fill="var(--hc,#d94b4b)" stroke="rgba(0,0,0,0.42)" stroke-width="1.3"/>
+        <ellipse cx="50" cy="50" rx="34" ry="22" fill="url(#hold-rim)"/>
+        <!-- Underside shadow -->
+        <ellipse cx="50" cy="60" rx="30" ry="10" fill="rgba(0,0,0,0.20)"/>
+        <ellipse cx="50" cy="50" rx="34" ry="22" fill="url(#hold-shade)"/>
+        <!-- Top edge highlight (the pinch top is a sharp ridge) -->
+        <path d="M28 40 Q42 32 56 32 Q66 32 72 38" fill="none" stroke="rgba(255,255,255,0.10)" stroke-width="1.4" stroke-linecap="round"/>
+        <!-- Notch grooves (where fingers pinch) -->
+        <path d="M50 30 L50 42 M50 58 L50 70" stroke="rgba(0,0,0,0.32)" stroke-width="1.6" fill="none"/>
+      </symbol>
+
+      <!-- SLOPER: large rounded dome -->
+      <symbol id="hold-sloper" viewBox="0 0 100 100">
+        <path filter="url(#grain)" d="M8 70 Q8 22 50 22 Q92 22 92 70 Q92 78 84 80 L16 80 Q8 78 8 70 Z" fill="var(--hc,#d94b4b)" stroke="rgba(0,0,0,0.42)" stroke-width="1.3"/>
+        <path d="M8 70 Q8 22 50 22 Q92 22 92 70 Q92 78 84 80 L16 80 Q8 78 8 70 Z" fill="url(#hold-rim)"/>
+        <!-- Deep underside shadow band (slopers have big undercuts) -->
+        <path d="M10 70 Q14 80 30 80 L70 80 Q86 80 90 70 Q70 76 50 74 Q30 76 10 70 Z" fill="rgba(0,0,0,0.26)"/>
+        <path d="M8 70 Q8 22 50 22 Q92 22 92 70 Q92 78 84 80 L16 80 Q8 78 8 70 Z" fill="url(#hold-shade)"/>
+        <!-- Top dome highlight curve -->
+        <path d="M22 36 Q40 24 60 24 Q72 24 80 32" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.8" stroke-linecap="round"/>
+      </symbol>
+
+      <!-- POCKET: round with finger hole -->
+      <symbol id="hold-pocket" viewBox="0 0 100 100">
+        <path filter="url(#grain)" d="M50 14 C76 14, 86 36, 86 50 C86 70, 70 86, 50 86 C30 86, 14 70, 14 50 C14 36, 24 14, 50 14 Z M50 38 C42 38, 38 44, 38 50 C38 56, 42 62, 50 62 C58 62, 62 56, 62 50 C62 44, 58 38, 50 38 Z" fill="var(--hc,#d94b4b)" stroke="rgba(0,0,0,0.42)" stroke-width="1.3" fill-rule="evenodd"/>
+        <path d="M50 14 C76 14, 86 36, 86 50 C86 70, 70 86, 50 86 C30 86, 14 70, 14 50 C14 36, 24 14, 50 14 Z M50 38 C42 38, 38 44, 38 50 C38 56, 42 62, 50 62 C58 62, 62 56, 62 50 C62 44, 58 38, 50 38 Z" fill="url(#hold-rim)" fill-rule="evenodd"/>
+        <path d="M50 14 C76 14, 86 36, 86 50 C86 70, 70 86, 50 86 C30 86, 14 70, 14 50 C14 36, 24 14, 50 14 Z M50 38 C42 38, 38 44, 38 50 C38 56, 42 62, 50 62 C58 62, 62 56, 62 50 C62 44, 58 38, 50 38 Z" fill="url(#hold-shade)" fill-rule="evenodd"/>
+        <!-- Hole inner shadow (depth) -->
+        <ellipse cx="50" cy="51" rx="12.5" ry="12.5" fill="none" stroke="rgba(0,0,0,0.42)" stroke-width="2.2"/>
+        <ellipse cx="50" cy="48" rx="11" ry="11" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>
+        <!-- Top lit edge -->
+        <path d="M30 26 Q42 18 54 18 Q64 18 72 22" fill="none" stroke="rgba(255,255,255,0.11)" stroke-width="1.5" stroke-linecap="round"/>
+      </symbol>
+
+      <!-- EDGE: long flat horizontal ledge with beveled sides -->
+      <symbol id="hold-edge" viewBox="0 0 100 100">
+        <path filter="url(#grain)" d="M14 44 L24 34 L76 34 L86 44 L86 58 L78 64 L22 64 L14 58 Z"
+              fill="var(--hc,#d94b4b)" stroke="rgba(0,0,0,0.42)" stroke-width="1.3"/>
+        <path d="M14 44 L24 34 L76 34 L86 44 L86 58 L78 64 L22 64 L14 58 Z" fill="url(#hold-rim)"/>
+        <!-- Strong underside shadow (the lip overhangs) -->
+        <path d="M14 56 L22 64 L78 64 L86 56 L80 58 Q50 60 20 58 Z" fill="rgba(0,0,0,0.32)"/>
+        <path d="M14 44 L24 34 L76 34 L86 44 L86 58 L78 64 L22 64 L14 58 Z" fill="url(#hold-shade-strong)"/>
+        <!-- Top edge highlight + bevel lines -->
+        <path d="M26 34 L74 34" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M14 44 L24 34 M76 34 L86 44" fill="none" stroke="rgba(0,0,0,0.20)" stroke-width="0.8"/>
+      </symbol>
+
+      <!-- PYRAMID: small triangular hold (looks like mini-volume) -->
+      <symbol id="hold-pyramid" viewBox="0 0 100 100">
+        <polygon filter="url(#grain)" points="50,20 82,76 18,76"
+                 fill="var(--hc,#d94b4b)" stroke="rgba(0,0,0,0.42)" stroke-width="1.3"/>
+        <polygon points="50,20 82,76 18,76" fill="url(#hold-rim)"/>
+        <!-- Right face is the shadow side -->
+        <polygon points="50,20 82,76 50,76" fill="rgba(0,0,0,0.22)"/>
+        <polygon points="50,20 82,76 18,76" fill="url(#hold-shade)"/>
+        <!-- Center ridge highlight -->
+        <line x1="50" y1="22" x2="50" y2="74" stroke="rgba(255,255,255,0.10)" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- Bottom edge -->
+        <line x1="20" y1="76" x2="80" y2="76" stroke="rgba(0,0,0,0.28)" stroke-width="1"/>
+      </symbol>
+
+      <!-- ASYM: asymmetric organic blob (irregular shape) -->
+      <symbol id="hold-asym" viewBox="0 0 100 100">
+        <path filter="url(#grain)" d="M 18 52 Q 12 30 30 22 Q 48 16 64 24 Q 84 28 88 50 Q 92 70 72 78 Q 56 84 42 80 Q 24 84 18 64 Q 14 58 18 52 Z"
+              fill="var(--hc,#d94b4b)" stroke="rgba(0,0,0,0.42)" stroke-width="1.3"/>
+        <path d="M 18 52 Q 12 30 30 22 Q 48 16 64 24 Q 84 28 88 50 Q 92 70 72 78 Q 56 84 42 80 Q 24 84 18 64 Q 14 58 18 52 Z" fill="url(#hold-rim)"/>
+        <!-- Underside crescent shadow (asymmetric blob casts uneven shadow) -->
+        <path d="M 20 64 Q 36 80 56 80 Q 76 80 86 64 Q 70 74 50 74 Q 30 76 20 64 Z" fill="rgba(0,0,0,0.22)"/>
+        <path d="M 18 52 Q 12 30 30 22 Q 48 16 64 24 Q 84 28 88 50 Q 92 70 72 78 Q 56 84 42 80 Q 24 84 18 64 Q 14 58 18 52 Z" fill="url(#hold-shade)"/>
+        <!-- Lit irregular edge highlight -->
+        <path d="M 22 42 Q 32 26 50 22 Q 58 22 66 26" fill="none" stroke="rgba(255,255,255,0.11)" stroke-width="1.6" stroke-linecap="round"/>
+        <!-- Small crease detail -->
+        <path d="M 38 56 Q 50 62 68 58" fill="none" stroke="rgba(0,0,0,0.18)" stroke-width="0.9"/>
+      </symbol>
+
+      <!-- BULB: teardrop / onion shape (narrower at top, wider bottom) -->
+      <symbol id="hold-bulb" viewBox="0 0 100 100">
+        <path filter="url(#grain)" d="M 50 16 C 64 16, 72 26, 72 36 C 72 50, 80 60, 80 70 C 80 80, 66 82, 50 82 C 34 82, 20 80, 20 70 C 20 60, 28 50, 28 36 C 28 26, 36 16, 50 16 Z"
+              fill="var(--hc,#d94b4b)" stroke="rgba(0,0,0,0.42)" stroke-width="1.3"/>
+        <path d="M 50 16 C 64 16, 72 26, 72 36 C 72 50, 80 60, 80 70 C 80 80, 66 82, 50 82 C 34 82, 20 80, 20 70 C 20 60, 28 50, 28 36 C 28 26, 36 16, 50 16 Z" fill="url(#hold-rim)"/>
+        <!-- Wide bottom shadow -->
+        <ellipse cx="50" cy="74" rx="28" ry="10" fill="rgba(0,0,0,0.22)"/>
+        <path d="M 50 16 C 64 16, 72 26, 72 36 C 72 50, 80 60, 80 70 C 80 80, 66 82, 50 82 C 34 82, 20 80, 20 70 C 20 60, 28 50, 28 36 C 28 26, 36 16, 50 16 Z" fill="url(#hold-shade)"/>
+        <!-- Top dome highlight -->
+        <path d="M 38 26 Q 46 18 56 18 Q 62 18 66 22" fill="none" stroke="rgba(255,255,255,0.11)" stroke-width="1.4" stroke-linecap="round"/>
+      </symbol>
+      <!-- VOLUME: large triangular geometric piece (matte grey with form shading) -->
+      <symbol id="vol-tri" viewBox="0 0 200 200">
+        <!-- Right-side shadow face (darker) -->
+        <polygon filter="url(#grain-medium)" points="100,20 180,170 100,170" fill="#4a443c" stroke="rgba(0,0,0,0.35)" stroke-width="1.5"/>
+        <!-- Left-side lit face (lighter matte grey) -->
+        <polygon filter="url(#grain-medium)" points="100,20 20,170 100,170" fill="#a39c91" stroke="rgba(0,0,0,0.35)" stroke-width="1.5"/>
+        <!-- Edge crease shadow -->
+        <line x1="100" y1="20" x2="100" y2="170" stroke="rgba(0,0,0,0.22)" stroke-width="1.2"/>
+      </symbol>
+
+      <!-- VOLUME: huge black spherical dome (matte but with form shading) -->
+      <symbol id="vol-sphere" viewBox="0 0 100 100">
+        <defs>
+          <radialGradient id="sphereGrad" cx="36%" cy="30%" r="82%">
+            <stop offset="0%" stop-color="#534a40"/>
+            <stop offset="40%" stop-color="#221e1a"/>
+            <stop offset="100%" stop-color="#040302"/>
+          </radialGradient>
+        </defs>
+        <circle filter="url(#grain-light)" cx="50" cy="50" r="46" fill="url(#sphereGrad)" stroke="rgba(0,0,0,0.55)" stroke-width="1"/>
+      </symbol>
+
+      <!-- VOLUME: fluorescent orange spherical dome -->
+      <symbol id="vol-sphere-orange" viewBox="0 0 100 100">
+        <defs>
+          <radialGradient id="sphereGradOrange" cx="36%" cy="30%" r="82%">
+            <stop offset="0%" stop-color="#ffb05a"/>
+            <stop offset="45%" stop-color="#ff6a14"/>
+            <stop offset="100%" stop-color="#8c2c00"/>
+          </radialGradient>
+        </defs>
+        <circle filter="url(#grain-medium)" cx="50" cy="50" r="46" fill="url(#sphereGradOrange)" stroke="rgba(0,0,0,0.45)" stroke-width="1"/>
+      </symbol>
+
+      <!-- VOLUME: fluorescent green spherical dome -->
+      <symbol id="vol-sphere-green" viewBox="0 0 100 100">
+        <defs>
+          <radialGradient id="sphereGradGreen" cx="36%" cy="30%" r="82%">
+            <stop offset="0%" stop-color="#88f5a0"/>
+            <stop offset="45%" stop-color="#2ed845"/>
+            <stop offset="100%" stop-color="#0e4d1a"/>
+          </radialGradient>
+        </defs>
+        <circle filter="url(#grain-medium)" cx="50" cy="50" r="46" fill="url(#sphereGradGreen)" stroke="rgba(0,0,0,0.45)" stroke-width="1"/>
+      </symbol>
+
+      <!-- VOLUME: green scooped hold (sample4) — rounded body tilted left, concave opening upper-right showing dark interior -->
+      <symbol id="vol-halfmoon-green" viewBox="0 0 100 100">
+        <defs>
+          <radialGradient id="halfBodyGreen" cx="32%" cy="62%" r="70%">
+            <stop offset="0%" stop-color="#b3eba0"/>
+            <stop offset="55%" stop-color="#6fbd5b"/>
+            <stop offset="100%" stop-color="#3a7a30"/>
+          </radialGradient>
+          <radialGradient id="halfInnerGreen" cx="58%" cy="38%" r="68%">
+            <stop offset="0%" stop-color="#4f9244"/>
+            <stop offset="60%" stop-color="#2a5825"/>
+            <stop offset="100%" stop-color="#142e12"/>
+          </radialGradient>
+        </defs>
+        <g transform="rotate(-12 50 50)">
+          <!-- Main rounded body -->
+          <path filter="url(#grain-medium)"
+                d="M 18 58
+                   C 14 32, 30 12, 52 12
+                   C 74 12, 88 32, 88 54
+                   C 88 74, 70 90, 48 90
+                   C 26 90, 22 76, 18 58 Z"
+                fill="url(#halfBodyGreen)"
+                stroke="rgba(15,35,12,0.9)" stroke-width="2.2"/>
+          <!-- Concave scoop — darker oval showing inside of the hold -->
+          <ellipse filter="url(#grain-medium)"
+                   cx="62" cy="36" rx="20" ry="15"
+                   fill="url(#halfInnerGreen)"
+                   stroke="rgba(15,35,12,0.9)" stroke-width="2"
+                   transform="rotate(-22 62 36)"/>
+          <!-- Front lip of the scoop (rim where outer body meets inner cavity) -->
+          <path d="M 44 38 Q 58 22, 78 30"
+                fill="none" stroke="rgba(15,35,12,0.9)" stroke-width="2" stroke-linecap="round"/>
+          <!-- Subtle rim highlight on the scoop opening -->
+          <path d="M 48 36 Q 58 28, 74 32"
+                fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="1.2" stroke-linecap="round"/>
+          <!-- Lower-left body highlight -->
+          <path d="M 24 60 C 26 48, 32 38, 44 32"
+                fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1.5" stroke-linecap="round"/>
+        </g>
+      </symbol>
+
+      <!-- TAPE MARK: short colored tape strip for route marking -->
+      <symbol id="tape-mark" viewBox="0 0 60 18">
+        <rect x="0" y="0" width="60" height="18" fill="var(--tc, #1f62b5)" stroke="rgba(0,0,0,0.18)" stroke-width="0.5"/>
+        <rect x="0" y="0" width="4" height="18" fill="rgba(0,0,0,0.16)"/>
+        <rect x="56" y="0" width="4" height="18" fill="rgba(0,0,0,0.16)"/>
+        <rect x="6" y="3" width="48" height="2.5" fill="rgba(255,255,255,0.22)"/>
+      </symbol>
+
+      <!-- Figure-8 knot (scroll indicator) -->
+      <symbol id="knot" viewBox="0 0 40 60">
+        <path d="M20 4 C28 4, 32 12, 28 18 C24 24, 14 26, 12 32 C10 38, 18 42, 22 38 C26 34, 18 30, 14 34 C10 38, 14 50, 24 52"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="24" cy="52" r="2.5" fill="currentColor"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- ============================================================== -->
+  <!-- Climbing-tape header strip                                     -->
+  <!-- ============================================================== -->
+  <div class="tape-strip" aria-hidden="true">
+    <div class="tape-strip__track">
+      <span>BELAY ON</span><span>★</span><span>OUR ROUTE TOGETHER</span><span>★</span>
+      <span>BELAY ON</span><span>★</span><span>OUR ROUTE TOGETHER</span><span>★</span>
+    </div>
+  </div>
+
+  <div class="invitation">
+    <!-- ============================== HERO ============================== -->
+    <section class="hero" id="top">
+      <div class="wall-grain" aria-hidden="true"></div>
+
+      <!-- Big volumes (in back) -->
+      <div class="holds" aria-hidden="true">
+        <svg class="vol" style="--x:-8%;--y:18%;--s:203px;--r:-8deg;"><use href="#vol-tri"/></svg>
+        <svg class="vol" style="--x:74%;--y:8%;--s:160px;--r:170deg;"><use href="#vol-tri"/></svg>
+        <svg class="vol" style="--x:82%;--y:64%;--s:139px;--r:0deg;"><use href="#vol-sphere-orange"/></svg>
+        <svg class="vol" style="--x:-6%;--y:74%;--s:116px;--r:0deg;"><use href="#vol-sphere-green"/></svg>
+      </div>
+
+      <!-- Blue route line connecting the pink route holds -->
+      <svg class="route-line" viewBox="0 0 480 900" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M 167 72 Q 110 162 135 252 Q 180 351 167 450 Q 105 549 133 648 Q 180 729 167 810"/>
+      </svg>
+
+      <!-- Scattered small blue holds (replacing former tape-mark rectangles) + accent tape marks -->
+      <div class="holds" aria-hidden="true">
+        <svg class="hold hold--blue" style="--x:3%; --y:12%; --s:32px;--r:25deg;"><use href="#hold-pocket"/></svg>
+        <svg class="hold hold--blue" style="--x:50%;--y:36%; --s:28px;--r:-18deg;"><use href="#hold-crimp"/></svg>
+        <svg class="hold hold--blue" style="--x:74%;--y:54%; --s:30px;--r:42deg;"><use href="#hold-pinch"/></svg>
+        <svg class="hold hold--white" style="--x:42%;--y:88%; --s:26px;--r:-10deg;"><use href="#hold-pyramid"/></svg>
+        <svg class="tape-mark tape-mark--orange" style="--x:78%;--y:32%;--s:35px;--r:-20deg;"><use href="#tape-mark"/></svg>
+        <svg class="tape-mark tape-mark--yellow" style="--x:72%;--y:62%;--s:35px;--r:35deg;"><use href="#tape-mark"/></svg>
+      </div>
+
+      <!-- ROUTE: pink chain zigzagging across the wall -->
+      <div class="holds" aria-hidden="true">
+        <svg class="hold hold--pink hold--route" style="--x:14%;--y:8%;  --s:67px;--r:-8deg;"><use href="#hold-asym"/></svg>
+        <svg class="hold hold--pink hold--route" style="--x:66%;--y:26%; --s:61px;--r:12deg;"><use href="#hold-edge"/></svg>
+        <svg class="hold hold--pink hold--route" style="--x:12%;--y:48%; --s:67px;--r:-5deg;"><use href="#hold-bulb"/></svg>
+        <svg class="hold hold--pink hold--route" style="--x:68%;--y:68%; --s:58px;--r:0deg;"><use href="#hold-pyramid"/></svg>
+        <svg class="hold hold--pink hold--route" style="--x:16%;--y:90%; --s:64px;--r:8deg;"><use href="#hold-jug"/></svg>
+      </div>
+
+      <!-- Dense colorful decorative holds — many small + medium pieces in various shapes -->
+      <div class="holds holds--hero" aria-hidden="true">
+        <!-- top band -->
+        <svg class="hold hold--red"    style="--x:6%; --y:2%;  --s:55px;--r:-14deg;"><use href="#hold-asym"/></svg>
+        <svg class="hold hold--yellow" style="--x:46%;--y:4%;  --s:44px;--r:18deg;"><use href="#hold-pocket"/></svg>
+        <svg class="hold hold--blue"   style="--x:62%;--y:6%;  --s:41px;--r:-30deg;"><use href="#hold-edge"/></svg>
+        <svg class="hold hold--white"  style="--x:88%;--y:4%;  --s:46px;--r:25deg;"><use href="#hold-pinch"/></svg>
+
+        <!-- upper-mid band -->
+        <svg class="hold hold--green"  style="--x:8%; --y:15%; --s:38px;--r:42deg;"><use href="#hold-sloper"/></svg>
+        <svg class="hold hold--green"  style="--x:42%;--y:22%; --s:41px;--r:-8deg;"><use href="#hold-pyramid"/></svg>
+        <svg class="hold hold--yellow" style="--x:58%;--y:30%; --s:35px;--r:0deg;"><use href="#hold-crimp"/></svg>
+        <svg class="hold hold--red"    style="--x:80%;--y:24%; --s:49px;--r:-12deg;"><use href="#hold-bulb"/></svg>
+        <svg class="hold hold--black"  style="--x:92%;--y:36%; --s:32px;--r:55deg;"><use href="#hold-crimp"/></svg>
+
+        <!-- mid band -->
+        <svg class="hold hold--blue"   style="--x:6%; --y:42%; --s:46px;--r:0deg;"><use href="#hold-pocket"/></svg>
+        <svg class="hold hold--white"  style="--x:42%;--y:46%; --s:41px;--r:22deg;"><use href="#hold-pinch"/></svg>
+        <svg class="hold hold--yellow" style="--x:58%;--y:54%; --s:44px;--r:-20deg;"><use href="#hold-edge"/></svg>
+        <svg class="hold hold--green"  style="--x:78%;--y:48%; --s:38px;--r:35deg;"><use href="#hold-asym"/></svg>
+        <svg class="hold hold--red"    style="--x:92%;--y:58%; --s:35px;--r:8deg;"><use href="#hold-crimp"/></svg>
+
+        <!-- lower-mid band -->
+        <svg class="hold hold--yellow" style="--x:6%; --y:66%; --s:46px;--r:-25deg;"><use href="#hold-jug"/></svg>
+        <svg class="hold hold--white"  style="--x:22%;--y:62%; --s:35px;--r:48deg;"><use href="#hold-pyramid"/></svg>
+        <svg class="hold hold--blue"   style="--x:24%;--y:75%; --s:44px;--r:-10deg;"><use href="#hold-sloper"/></svg>
+        <svg class="hold hold--black"  style="--x:78%;--y:78%; --s:35px;--r:18deg;"><use href="#hold-pocket"/></svg>
+
+        <!-- bottom band -->
+        <svg class="hold hold--green"  style="--x:8%; --y:86%; --s:38px;--r:60deg;"><use href="#hold-crimp"/></svg>
+        <svg class="hold hold--red"    style="--x:92%;--y:88%; --s:44px;--r:-20deg;"><use href="#hold-bulb"/></svg>
+        <svg class="hold hold--blue"   style="--x:60%;--y:92%; --s:35px;--r:0deg;"><use href="#hold-crimp"/></svg>
+        <svg class="hold hold--yellow" style="--x:78%;--y:84%; --s:44px;--r:40deg;"><use href="#hold-pinch"/></svg>
+      </div>
+
+      <!-- Climbing mat strip at the bottom of the wall -->
+      <div class="mat-strip" aria-hidden="true"></div>
+
+      <div class="hero__inner">
+        <p class="hero__eyebrow"><span>WE'RE</span><span class="dot">●</span><span>GETTING MARRIED</span></p>
+
+        <div class="hero__photo-frame">
+          <img class="hero__photo" data-component="hero-photo" alt="신랑신부 메인 사진" data-bind="mainPhoto" />
+          <span class="tape tape--tl"></span>
+          <span class="tape tape--br"></span>
+          <button class="gallery__heart hero__heart" type="button" data-component="hero-heart" aria-label="좋아요">
+            <span class="gallery__heart-icon">♥</span>
+            <span class="gallery__heart-count"></span>
+          </button>
+        </div>
+
+        <h1 class="hero__names">
+          <span class="hero__name" data-bind="brideName"></span>
+          <span class="hero__amp">&amp;</span>
+          <span class="hero__name" data-bind="groomName"></span>
+        </h1>
+
+        <div class="hero__meta">
+          <p class="hero__date" data-bind="dateLine"></p>
+          <p class="hero__venue">
+            <span data-bind="venueName"></span> · <span data-bind="venueHall"></span>
+          </p>
+        </div>
+      </div>
+
+      <a href="#greeting" class="scroll-indicator" aria-label="아래로 스크롤">
+        <svg class="scroll-indicator__knot"><use href="#knot"/></svg>
+        <span>SCROLL DOWN</span>
+      </a>
+    </section>
+
+    <!-- ============================== GREETING ============================== -->
+    <section class="section section--greeting" id="greeting">
+      <!-- Blue route tape continuing through this section -->
+      <svg class="route-line" viewBox="0 0 480 700" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M 167 0 Q 150 50 165 90 Q 125 200 135 320 Q 155 450 175 570 Q 170 640 175 700"/>
+      </svg>
+      <!-- Large background volume -->
+      <svg class="vol" style="--x:78%;--y:380px;--s:170px;--r:90deg;"><use href="#vol-tri"/></svg>
+      <!-- Climbing groom — right hand grabs the middle pink route hold -->
+      <div class="climber climber--groom-r" style="left:5px; top:297px;"></div>
+      <!-- Off-edge accent (decorative) -->
+      <svg class="section__accent-hold hold--red" style="--s:160px;--r:-15deg;"><use href="#hold-bulb"/></svg>
+      <!-- ROUTE: pink chain zigzagging — middle hold anchored left for the climbing groom -->
+      <svg class="hold hold--pink hold--route" style="--x:66%;--y:60px; --s:61px;--r:-5deg;"><use href="#hold-asym"/></svg>
+      <svg class="hold hold--pink hold--route" style="--x:17%;--y:290px;--s:58px;--r:10deg;"><use href="#hold-edge"/></svg>
+      <svg class="hold hold--green" style="--x:10%;--y:540px;--s:61px;--r:-3deg;"><use href="#hold-bulb"/></svg>
+      <!-- Scattered small blue holds (replacing former tape-mark rectangles) -->
+      <svg class="hold hold--blue" style="--x:8%; --y:430px;--s:28px;--r:-25deg;"><use href="#hold-pocket"/></svg>
+      <svg class="hold hold--blue" style="--x:72%;--y:620px;--s:32px;--r:8deg;"><use href="#hold-pinch"/></svg>
+      <!-- Other decorative holds (right side + scattered) -->
+      <svg class="hold hold--yellow" style="--x:90%;--y:50px;  --s:44px;--r:25deg;"><use href="#hold-crimp"/></svg>
+      <svg class="hold hold--blue"   style="--x:84%;--y:200px; --s:38px;--r:-45deg;"><use href="#hold-pocket"/></svg>
+      <svg class="hold hold--white"  style="--x:92%;--y:340px; --s:41px;--r:15deg;"><use href="#hold-sloper"/></svg>
+      <svg class="hold hold--red"    style="--x:52%;--y:510px; --s:35px;--r:60deg;"><use href="#hold-pyramid"/></svg>
+      <svg class="hold hold--green"  style="--x:90%;--y:580px; --s:32px;--r:-20deg;"><use href="#hold-crimp"/></svg>
+      <svg class="hold hold--black"  style="--x:82%;--y:120px; --s:32px;--r:18deg;"><use href="#hold-pinch"/></svg>
+      <svg class="tape-mark tape-mark--orange" style="--x:10%;--y:60px;--s:38px;--r:35deg;"><use href="#tape-mark"/></svg>
+      <div class="section__head">
+        <p class="section__label">INVITATION · 01</p>
+      </div>
+      <p class="greeting__body" data-bind="greeting"></p>
+      <div class="greeting__parents">
+        <div class="parent-line">
+          <span data-bind="brideFather"></span>
+          <span class="dot-sep">·</span>
+          <span data-bind="brideMother"></span>
+          <span class="parent-line__of">의 딸</span>
+          <strong data-bind="brideName"></strong>
+        </div>
+        <div class="parent-line">
+          <span data-bind="groomFather"></span>
+          <span class="dot-sep">·</span>
+          <span data-bind="groomMother"></span>
+          <span class="parent-line__of">의 아들</span>
+          <strong data-bind="groomName"></strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== CALENDAR ============================== -->
+    <section class="section section--calendar">
+      <!-- Blue route tape -->
+      <svg class="route-line" viewBox="0 0 480 750" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M 175 0 Q 165 50 175 90 Q 115 200 135 350 Q 145 480 165 610 Q 170 680 165 750"/>
+      </svg>
+      <!-- Large background volume -->
+      <svg class="vol" style="--x:-10%;--y:540px;--s:160px;--r:170deg;"><use href="#vol-tri"/></svg>
+      <!-- Climbing bride — right hand grabs the middle pink route hold -->
+      <div class="climber climber--bride-r" style="left:70px; top:315px;"></div>
+      <svg class="section__accent-hold hold--blue" style="--s:145px;--r:30deg;left:auto;right:-30px;top:60px;"><use href="#hold-sloper"/></svg>
+      <!-- ROUTE: zigzag — middle hold anchored left for the climbing bride -->
+      <svg class="hold hold--pink hold--route" style="--x:15%;--y:50px; --s:61px;--r:5deg;"><use href="#hold-jug"/></svg>
+      <svg class="hold hold--pink hold--route" style="--x:31%;--y:300px;--s:58px;--r:-8deg;"><use href="#hold-pyramid"/></svg>
+      <svg class="hold hold--pink hold--route" style="--x:70%;--y:580px;--s:61px;--r:5deg;"><use href="#hold-asym"/></svg>
+      <svg class="hold hold--blue" style="--x:8%; --y:140px;--s:32px;--r:-15deg;"><use href="#hold-pocket"/></svg>
+      <svg class="hold hold--blue" style="--x:58%;--y:465px;--s:28px;--r:30deg;"><use href="#hold-crimp"/></svg>
+      <svg class="hold hold--yellow" style="--x:40%;--y:550px;--s:30px;--r:-8deg;"><use href="#hold-pyramid"/></svg>
+      <!-- Decorative holds -->
+      <svg class="hold hold--yellow" style="--x:6%; --y:180px; --s:44px;--r:25deg;"><use href="#hold-crimp"/></svg>
+      <svg class="hold hold--red"    style="--x:90%;--y:200px; --s:41px;--r:50deg;"><use href="#hold-edge"/></svg>
+      <svg class="hold hold--white"  style="--x:88%;--y:380px; --s:38px;--r:8deg;"><use href="#hold-pinch"/></svg>
+      <svg class="hold hold--green"  style="--x:6%; --y:430px; --s:35px;--r:-30deg;"><use href="#hold-bulb"/></svg>
+      <svg class="hold hold--black"  style="--x:90%;--y:520px; --s:32px;--r:35deg;"><use href="#hold-pocket"/></svg>
+      <svg class="hold hold--green"   style="--x:68%;--y:70px; --s:32px;--r:-12deg;"><use href="#hold-crimp"/></svg>
+      <svg class="tape-mark tape-mark--orange" style="--x:84%;--y:300px;--s:38px;--r:35deg;"><use href="#tape-mark"/></svg>
+      <div class="section__head">
+        <p class="section__label">DATE · 02</p>
+        <h2 class="section__title" data-bind="dateBig"></h2>
+        <p class="section__sub" data-bind="dateDayTime"></p>
+      </div>
+
+      <div class="calendar" data-component="calendar"></div>
+
+      <div class="dday">
+        <span class="dday__line"></span>
+        <div class="dday__chip">
+          <span class="dday__num" data-component="dday">--</span>
+          <span class="dday__label">DAYS LEFT</span>
+        </div>
+        <span class="dday__line"></span>
+      </div>
+    </section>
+
+    <!-- ============================== GALLERY ============================== -->
+    <section class="section section--gallery">
+      <!-- Blue route tape -->
+      <svg class="route-line" viewBox="0 0 480 800" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M 165 0 Q 150 40 167 90 Q 110 220 105 350 Q 110 480 130 620 Q 145 720 145 800"/>
+      </svg>
+      <!-- Large background volume -->
+      <svg class="vol" style="--x:78%;--y:480px;--s:140px;--r:0deg;"><use href="#vol-sphere"/></svg>
+      <svg class="section__accent-hold hold--yellow" style="--s:130px;--r:-10deg;top:80px;"><use href="#hold-pocket"/></svg>
+      <!-- ROUTE: zigzag -->
+      <svg class="hold hold--pink hold--route" style="--x:14%;--y:60px; --s:58px;--r:-5deg;"><use href="#hold-edge"/></svg>
+      <svg class="hold hold--pink hold--route" style="--x:66%;--y:320px;--s:61px;--r:8deg;"><use href="#hold-bulb"/></svg>
+      <svg class="hold hold--pink hold--route" style="--x:16%;--y:600px;--s:61px;--r:-5deg;"><use href="#hold-jug"/></svg>
+      <svg class="hold hold--green" style="--x:50%;--y:160px;--s:32px;--r:18deg;"><use href="#hold-pinch"/></svg>
+      <svg class="hold hold--blue" style="--x:8%; --y:460px;--s:28px;--r:-30deg;"><use href="#hold-pocket"/></svg>
+      <svg class="hold hold--blue" style="--x:60%;--y:710px;--s:30px;--r:5deg;"><use href="#hold-crimp"/></svg>
+      <!-- Decorative holds -->
+      <svg class="hold hold--blue"  style="--x:92%;--y:180px; --s:38px;--r:55deg;"><use href="#hold-crimp"/></svg>
+      <svg class="hold hold--red"   style="--x:88%;--y:340px; --s:41px;--r:-12deg;"><use href="#hold-asym"/></svg>
+      <svg class="hold hold--white" style="--x:84%;--y:480px; --s:44px;--r:20deg;"><use href="#hold-sloper"/></svg>
+      <svg class="hold hold--green" style="--x:92%;--y:560px; --s:32px;--r:-35deg;"><use href="#hold-pyramid"/></svg>
+      <svg class="hold hold--black" style="--x:86%;--y:80px;  --s:35px;--r:40deg;"><use href="#hold-pinch"/></svg>
+      <svg class="hold hold--yellow" style="--x:80%;--y:240px;--s:32px;--r:18deg;"><use href="#hold-crimp"/></svg>
+      <svg class="tape-mark tape-mark--orange" style="--x:84%;--y:420px;--s:38px;--r:-30deg;"><use href="#tape-mark"/></svg>
+      <div class="section__head">
+        <p class="section__label">GALLERY · 03</p>
+<!--        <h2 class="section__title">사진첩</h2>-->
+      </div>
+
+      <div class="gallery" data-component="gallery"></div>
+    </section>
+
+    <!-- ============================== MAP ============================== -->
+    <section class="section section--map">
+      <!-- Blue route tape -->
+      <svg class="route-line" viewBox="0 0 480 900" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M 145 0 Q 130 50 145 90 Q 115 180 125 310 Q 135 410 160 530 Q 140 640 135 750 Q 145 830 145 900"/>
+      </svg>
+      <!-- Large background volumes -->
+      <svg class="vol" style="--x:-12%;--y:580px;--s:175px;--r:0deg;"><use href="#vol-sphere"/></svg>
+      <svg class="vol" style="--x:80%;--y:280px;--s:160px;--r:170deg;"><use href="#vol-tri"/></svg>
+      <svg class="section__accent-hold hold--red" style="--s:160px;--r:20deg;right:-20px;left:auto;"><use href="#hold-jug"/></svg>
+      <!-- ROUTE (longer section, 4 holds zigzag) -->
+      <svg class="hold hold--pink hold--route" style="--x:14%;--y:60px; --s:61px;--r:-3deg;"><use href="#hold-pinch"/></svg>
+      <svg class="hold hold--pink hold--route" style="--x:66%;--y:280px;--s:58px;--r:8deg;"><use href="#hold-asym"/></svg>
+      <svg class="hold hold--pink hold--route" style="--x:16%;--y:500px;--s:61px;--r:-5deg;"><use href="#hold-edge"/></svg>
+      <svg class="hold hold--pink hold--route" style="--x:68%;--y:720px;--s:58px;--r:5deg;"><use href="#hold-bulb"/></svg>
+      <svg class="hold hold--blue" style="--x:88%;--y:30px;--s:30px;--r:22deg;"><use href="#hold-crimp"/></svg>
+      <svg class="hold hold--blue" style="--x:10%;--y:400px;--s:32px;--r:-18deg;"><use href="#hold-pocket"/></svg>
+      <svg class="hold hold--blue" style="--x:54%;--y:620px;--s:28px;--r:40deg;"><use href="#hold-pinch"/></svg>
+      <svg class="hold hold--blue" style="--x:34%;--y:820px;--s:30px;--r:-12deg;"><use href="#hold-pyramid"/></svg>
+      <!-- Decorative holds -->
+      <svg class="hold hold--green"  style="--x:4%; --y:160px; --s:38px;--r:35deg;"><use href="#hold-pocket"/></svg>
+      <svg class="hold hold--blue"   style="--x:90%;--y:260px; --s:41px;--r:-15deg;"><use href="#hold-pyramid"/></svg>
+      <svg class="hold hold--yellow" style="--x:4%; --y:400px; --s:35px;--r:50deg;"><use href="#hold-pinch"/></svg>
+      <svg class="hold hold--white"  style="--x:88%;--y:480px; --s:44px;--r:10deg;"><use href="#hold-sloper"/></svg>
+      <svg class="hold hold--red"    style="--x:92%;--y:620px; --s:38px;--r:-22deg;"><use href="#hold-crimp"/></svg>
+      <svg class="hold hold--black"  style="--x:90%;--y:740px; --s:35px;--r:25deg;"><use href="#hold-asym"/></svg>
+      <svg class="hold hold--yellow" style="--x:66%;--y:120px; --s:32px;--r:18deg;"><use href="#hold-crimp"/></svg>
+      <svg class="tape-mark tape-mark--orange" style="--x:80%;--y:380px;--s:41px;--r:35deg;"><use href="#tape-mark"/></svg>
+      <div class="section__head">
+        <p class="section__label">LOCATION · 04</p>
+        <h2 class="section__title">오시는 길</h2>
+      </div>
+
+      <div class="venue-card">
+        <p class="venue-card__name" data-bind="venueName"></p>
+        <p class="venue-card__hall" data-bind="venueHall"></p>
+        <p class="venue-card__addr" data-bind="venueAddress"></p>
+      </div>
+
+      <div class="map-frame">
+        <iframe
+          class="map"
+          data-component="map"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="예식장 지도"
+        ></iframe>
+      </div>
+
+      <div class="nav-buttons" data-component="nav-buttons"></div>
+
+      <div class="transit">
+        <h3 class="transit__title">교통편</h3>
+        <ul class="transit__list" data-component="transit"></ul>
+      </div>
+    </section>
+
+    <!-- ============================== ACCOUNT ============================== -->
+    <section class="section section--account">
+      <!-- Blue route tape -->
+      <svg class="route-line" viewBox="0 0 480 700" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M 145 0 Q 130 40 135 90 Q 165 200 175 330 Q 145 470 135 610 Q 140 680 135 700"/>
+      </svg>
+      <!-- Large background volume -->
+      <svg class="vol" style="--x:76%;--y:420px;--s:160px;--r:90deg;"><use href="#vol-tri"/></svg>
+      <svg class="section__accent-hold hold--black" style="--s:130px;--r:-25deg;"><use href="#hold-pinch"/></svg>
+      <!-- ROUTE: zigzag -->
+      <svg class="hold hold--pink hold--route" style="--x:75%;--y:80px; --s:58px;--r:5deg;"><use href="#hold-jug"/></svg>
+      <svg class="hold hold--pink hold--route" style="--x:68%;--y:300px;--s:61px;--r:-8deg;"><use href="#hold-pyramid"/></svg>
+      <svg class="hold hold--pink hold--route" style="--x:16%;--y:580px;--s:58px;--r:5deg;"><use href="#hold-asym"/></svg>
+      <svg class="hold hold--blue" style="--x:4%;--y:30px;--s:32px;--r:-25deg;"><use href="#hold-pocket"/></svg>
+      <svg class="hold hold--blue" style="--x:18%; --y:420px;--s:28px;--r:18deg;"><use href="#hold-crimp"/></svg>
+      <svg class="hold hold--blue" style="--x:60%;--y:660px;--s:30px;--r:8deg;"><use href="#hold-pinch"/></svg>
+      <!-- Decorative holds -->
+      <svg class="hold hold--yellow" style="--x:14%;--y:60px;  --s:44px;--r:20deg;"><use href="#hold-crimp"/></svg>
+      <svg class="hold hold--green"  style="--x:6%; --y:240px; --s:38px;--r:-30deg;"><use href="#hold-pocket"/></svg>
+      <svg class="hold hold--blue"   style="--x:90%;--y:360px; --s:35px;--r:15deg;"><use href="#hold-edge"/></svg>
+      <svg class="hold hold--red"    style="--x:4%; --y:440px; --s:41px;--r:45deg;"><use href="#hold-bulb"/></svg>
+      <svg class="hold hold--green"  style="--x:92%;--y:540px; --s:32px;--r:-20deg;"><use href="#hold-crimp"/></svg>
+      <svg class="hold hold--white"  style="--x:6%; --y:660px; --s:35px;--r:30deg;"><use href="#hold-sloper"/></svg>
+      <svg class="hold hold--green"  style="--x:85%;--y:200px; --s:29px;--r:8deg;"><use href="#hold-pinch"/></svg>
+      <svg class="tape-mark tape-mark--orange" style="--x:58%;--y:420px;--s:41px;--r:-15deg;"><use href="#tape-mark"/></svg>
+      <div class="section__head">
+        <p class="section__label">GIFT · 05</p>
+        <h2 class="section__title">마음 전하실 곳</h2>
+        <p class="section__sub">참석이 어려운 분들을 위해 안내드립니다.</p>
+      </div>
+
+      <details class="account-card">
+        <summary>
+          <span class="account-card__side">신부측</span>
+          <span class="account-card__hint">계좌번호 보기</span>
+          <span class="account-card__chev">+</span>
+        </summary>
+        <div class="account-list" data-component="account-bride"></div>
+      </details>
+
+      <details class="account-card">
+        <summary>
+          <span class="account-card__side">신랑측</span>
+          <span class="account-card__hint">계좌번호 보기</span>
+          <span class="account-card__chev">+</span>
+        </summary>
+        <div class="account-list" data-component="account-groom"></div>
+      </details>
+    </section>
+
+    <!-- ============================== FOOTER ============================== -->
+    <footer class="footer">
+      <div class="footer__hold-row" aria-hidden="true">
+        <svg class="hold hold--pink hold--route" style="--s:55px;--r:0;"><use href="#hold-bulb"/></svg>
+        <svg class="hold hold--yellow" style="--s:41px;--r:15deg;"><use href="#hold-crimp"/></svg>
+        <svg class="hold hold--blue" style="--s:46px;--r:-10deg;"><use href="#hold-pocket"/></svg>
+        <svg class="hold hold--red" style="--s:44px;--r:20deg;"><use href="#hold-pyramid"/></svg>
+        <svg class="hold hold--white" style="--s:46px;--r:-5deg;"><use href="#hold-edge"/></svg>
+        <svg class="hold hold--black" style="--s:41px;--r:8deg;"><use href="#hold-asym"/></svg>
+      </div>
+
+      <p class="footer__msg">
+        함께 와주시는 모든 분들께<br />
+        진심으로 감사드립니다.
+      </p>
+
+      <button class="share-btn" data-action="share">
+        <span>↗</span> 청첩장 공유하기
+      </button>
+
+      <p class="footer__sig">
+        <span data-bind="brideName"></span> &amp; <span data-bind="groomName"></span>
+      </p>
+      <p class="footer__date" data-bind="dateLine"></p>
+    </footer>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" data-component="toast" role="status" aria-live="polite"></div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" data-component="lightbox" aria-hidden="true">
+    <button class="lightbox__btn lightbox__close" data-action="lightbox-close" aria-label="닫기">×</button>
+    <button class="lightbox__btn lightbox__nav lightbox__nav--prev" data-action="lightbox-prev" aria-label="이전">‹</button>
+    <img class="lightbox__img" data-component="lightbox-img" alt="" />
+    <button class="lightbox__btn lightbox__nav lightbox__nav--next" data-action="lightbox-next" aria-label="다음">›</button>
+    <p class="lightbox__counter">
+      <span data-component="lightbox-current">1</span>
+      <span> / </span>
+      <span data-component="lightbox-total">18</span>
+    </p>
+  </div>
+
+  <!-- Firebase (gallery likes) — config in firebase-config.js -->
+  <script>
+    // Promise resolved by the module below once Firebase is ready (or skipped if no config)
+    window.WEDDING_FB_READY = new Promise((resolve) => {
+      window.__resolveFB = resolve;
+    });
+  </script>
+  <script src="firebase-config.js"></script>
+  <script type="module">
+    const cfg = window.WEDDING_FIREBASE_CONFIG;
+    if (!cfg || !cfg.apiKey) {
+      console.warn("[wedding] firebase-config.js not filled — likes disabled");
+      window.__resolveFB(null);
+    } else {
+      try {
+        const { initializeApp } = await import(
+          "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"
+        );
+        const fs = await import(
+          "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js"
+        );
+        const app = initializeApp(cfg);
+        const db = fs.getFirestore(app);
+        window.WEDDING_FB = {
+          db,
+          doc: fs.doc,
+          setDoc: fs.setDoc,
+          getDocs: fs.getDocs,
+          collection: fs.collection,
+          increment: fs.increment,
+          onSnapshot: fs.onSnapshot,
+        };
+        window.__resolveFB(window.WEDDING_FB);
+      } catch (err) {
+        console.warn("[wedding] firebase init failed:", err);
+        window.__resolveFB(null);
+      }
+    }
+  </script>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
