@@ -512,14 +512,14 @@ button {
 }
 .hero__date {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 15px;
   letter-spacing: 0.18em;
   color: var(--ink);
   font-weight: 500;
 }
 .hero__venue {
-  margin-top: 6px;
-  font-size: 13px;
+  margin-top: 8px;
+  font-size: 15px;
   color: var(--ink-soft);
   letter-spacing: 0.02em;
 }
@@ -687,6 +687,10 @@ button {
   font-weight: 500;
   font-size: 38px;
   letter-spacing: 0;
+}
+.section--calendar .section__sub {
+  font-size: 16px;
+  margin-top: 14px;
 }
 
 .calendar {
@@ -1021,17 +1025,17 @@ body.lightbox-open {
   color: var(--ink);
 }
 .venue-card__hall {
-  margin-top: 4px;
+  margin-top: 6px;
   font-family: var(--font-mono);
-  font-size: 11.5px;
+  font-size: 13px;
   letter-spacing: 0.18em;
   color: var(--ink-soft);
 }
 .venue-card__addr {
   margin-top: 14px;
-  font-size: 13.5px;
+  font-size: 16px;
   color: var(--ink);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .map-frame {
@@ -1279,12 +1283,12 @@ body.lightbox-open {
 }
 .footer__msg {
   font-family: var(--font-display);
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 500;
   font-style: italic;
   line-height: 1.6;
   color: var(--ink);
-  margin-bottom: 22px;
+  margin-bottom: 24px;
 }
 .share-btn {
   display: inline-flex;
@@ -1311,14 +1315,14 @@ body.lightbox-open {
 }
 .footer__sig {
   font-family: var(--font-display);
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 500;
   color: var(--ink);
 }
 .footer__date {
-  margin-top: 6px;
+  margin-top: 8px;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 14px;
   color: var(--ink-soft);
   letter-spacing: 0.2em;
 }
