@@ -1264,7 +1264,7 @@ body.lightbox-open {
    ============================================================ */
 .footer {
   position: relative;
-  padding: 60px var(--pad-x) 80px;
+  padding: 60px var(--pad-x) calc(160px + env(safe-area-inset-bottom, 0px));
   text-align: center;
   background: transparent;
   isolation: isolate;
