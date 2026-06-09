@@ -51,7 +51,9 @@
   // Bindings (data-bind)
   // ---------------------------------------------------------------
   const bindings = {
-    mainPhoto: data.mainPhoto,
+    // mainPhoto: intentionally NOT bound here — hero img src is set later by
+    // renderGalleryAndHero() after Firebase resolves so we don't flash the
+    // original photo before swapping to the top-liked one.
     groomName: data.groom.name,
     brideName: data.bride.name,
     groomFather: data.groom.father,
@@ -198,8 +200,9 @@
       displayGallery[bestIdx] = origHero;
     }
 
-    // Apply hero swap if needed (and only if different from original to avoid reload)
-    if (heroImg && displayHero !== origHero) heroImg.src = displayHero;
+    // Set hero src now (intentionally deferred from initial binding to avoid
+    // briefly showing the original photo before the swap decision is made).
+    if (heroImg) heroImg.src = displayHero;
 
     // User's previously-liked photo IDs
     const liked = new Set(
