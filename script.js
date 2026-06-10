@@ -44,6 +44,8 @@
   }
 
   const dateLine = `${Y}.${PAD(M + 1)}.${PAD(D)}  ${EN_DAY[dayIdx]}  ${timeRange24}`;
+  const heroDate = `${Y}.${PAD(M + 1)}.${PAD(D)}  ${KO_DAY[dayIdx]}요일`;
+  const heroTime = timeRange24;
   const dateBig = `${Y}.${PAD(M + 1)}.${PAD(D)}`;
   const dateDayTime = `${KO_DAY[dayIdx]}요일 ${timeRangeKo}`;
 
@@ -65,6 +67,8 @@
     venueHall: data.venue.hall,
     venueAddress: data.venue.address,
     dateLine,
+    heroDate,
+    heroTime,
     dateBig,
     dateDayTime,
   };
