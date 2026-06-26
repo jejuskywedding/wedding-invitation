@@ -448,6 +448,7 @@
   function renderAccounts(side, accounts) {
     const root = document.querySelector(`[data-component="account-${side}"]`);
     if (!root) return;
+    root.innerHTML = "";
     accounts.forEach((acc) => {
       const row = document.createElement("div");
       row.className = "account-row";
@@ -461,8 +462,25 @@
       root.appendChild(row);
     });
   }
-  renderAccounts("groom", data.groom.accounts);
-  renderAccounts("bride", data.bride.accounts);
+
+  function renderAccountMessage(side, msg) {
+    const root = document.querySelector(`[data-component="account-${side}"]`);
+    if (!root) return;
+    root.innerHTML = `<p class="account-msg">${msg}</p>`;
+  }
+
+  const hideAccounts = new URLSearchParams(location.search).has("main");
+  if (hideAccounts) {
+    const msg = data.accountHideMessage;
+    renderAccountMessage("bride", msg);
+    renderAccountMessage("groom", msg);
+    // 계좌 없는 버전에서는 "참석이 어려운 분들을 위해..." 안내 문구를 숨김
+    const sub = document.querySelector('[data-component="account-sub"]');
+    if (sub) sub.style.display = "none";
+  } else {
+    renderAccounts("bride", data.bride.accounts);
+    renderAccounts("groom", data.groom.accounts);
+  }
 
   // ---------------------------------------------------------------
   // Copy-to-clipboard + Toast

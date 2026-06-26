@@ -808,6 +808,15 @@ button {
   background: transparent;
   padding-bottom: 70px;
 }
+.gallery__guide {
+  margin-top: 14px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-soft, var(--ink-faint));
+}
+.gallery__guide-heart {
+  color: var(--accent);
+}
 .gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1213,6 +1222,14 @@ body.lightbox-open {
   padding: 8px 20px 18px;
   display: flex;
   flex-direction: column;
+}
+.account-msg {
+  padding: 18px 4px 10px;
+  text-align: center;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  letter-spacing: 0.01em;
 }
 .account-row {
   display: flex;
